@@ -1,0 +1,54 @@
+@import "css/settings.scss";
+@import "css/mixins.scss";
+
+.toolbar-container {
+    .toolbar-spacer {
+        flex: 1 1 auto;
+    }
+
+    .right-button-container {
+        margin-right: $xs-padding;
+
+        mat-icon {
+            padding: 0 14px;
+        }
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        app-register-button, app-login-button {
+            margin-right: 10px;
+        }
+    }
+
+    margin-left: 0 !important;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 5;
+}
+
+#shop-header {
+    background: transparent;
+}
+
+#banner {
+    height: 24rem;
+    display: flex;
+    background: url('assets/images/kantilever_banner_nieuw.jpg') no-repeat center 0;
+    background-size: cover;
+    filter: blur(.5px);
+    -webkit-filter: blur(.5px);
+    width: 100%;
+    @include flex-align-center();
+
+    img {
+        height: 50%;
+        width: auto;
+    }
+}
+
+#site-title {
+    margin-left: 4rem;
+}

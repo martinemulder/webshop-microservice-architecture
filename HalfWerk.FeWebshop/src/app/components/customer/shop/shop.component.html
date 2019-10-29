@@ -1,0 +1,12 @@
+<div class="product-toolbar">
+  <app-product-search (productQueryResult)="handleQueryResult($event)" [products]="allProducten"></app-product-search>
+
+  <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="handlePageEvent($event)"
+    [showFirstLastButtons]="true" nextPageLabel="'Volgende pagina'">
+  </mat-paginator>
+</div>
+
+<div class="content">
+  <h3 *ngIf="queryResult">U zocht op: <strong>{{ queryResult.query }}</strong> ({{ queryResult.producten.length }} {{ resultaatText }})</h3>
+  <app-product-list [products]="producten"></app-product-list>
+</div>

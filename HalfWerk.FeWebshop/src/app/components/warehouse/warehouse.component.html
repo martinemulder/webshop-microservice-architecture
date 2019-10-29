@@ -1,0 +1,18 @@
+<ng-container class="container">
+  <mat-toolbar color="primary" class="toolbar-container">
+    <a routerLink="/">
+      <h1 id="site-title">Kantilever Magazijn</h1>
+    </a>
+
+    <div class="toolbar-button-container">
+      <button class="btn" mat-raised-button color="primary" routerLink="/warehouse">Bestellingen</button>
+      <app-login-button></app-login-button>
+    </div>
+
+  </mat-toolbar>
+  <mat-sidenav-container class="mat-sidenav-container">
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</ng-container>

@@ -1,0 +1,46 @@
+@import "css/settings.scss";
+@import "css/mixins.scss";
+
+.btn {
+    font-size: 1.1rem;
+    padding: $s-padding;
+    border-radius: 0!important;
+
+    &:hover {
+        @include hover-effect();
+    }
+  }
+
+  button {
+    &.mat-primary {
+        background-color: darken($color-kantilever, 25%)!important;
+        color: white!important;
+    }
+
+    &.mat-approve {
+        background: $color-green;
+        color: white;
+    }
+
+    &:disabled {
+      color: $color-grey;
+      background-color: rgba(0, 0, 0, 0.12);
+
+      &:hover {
+        opacity: 1;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .mat-raised-button {
+      @include shadow();
+  }
+
+  .mat-toolbar {
+    .btn {
+        .mat-icon {
+            padding: 0 4px!important;
+        }
+    }
+  }

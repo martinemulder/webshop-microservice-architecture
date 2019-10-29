@@ -1,0 +1,53 @@
+
+.mat-table-wrap {
+    width: 90%;
+    margin: 0 auto;
+
+    .header {
+        margin: 0px;
+    }
+
+    table {
+        @include shadow();
+        box-shadow: none!important;
+        border: .1rem solid rgba(0, 0, 0, 0.12);
+        border-width: .1rem 0 0 0;
+        margin-top: $m-padding;
+        width: 100%;
+
+        img {
+            padding: $xs-padding 0;
+            height: 5rem;
+            vertical-align: middle;
+        }
+    }
+
+    .mat-header-cell {
+        font-size: 1rem;
+        height: 4rem;
+        line-height: 4rem;
+        font-size: 1.1rem;
+    }
+
+    td.mat-cell, .mat-footer-cell {
+        height: 3rem;
+        font-size: 1rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .mat-footer-cell {
+        font-weight: 600;
+    }
+
+    .order-container {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .mat-column-prijsperstuk, .mat-column-prijs, .mat-column-prijsInclBtw, 
+    .mat-column-prijsExclBtw, .mat-column-aantal {
+        text-align: right;
+        padding-right: $l-padding;
+    }
+}

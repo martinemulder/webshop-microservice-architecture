@@ -1,0 +1,48 @@
+@import "css/settings.scss";
+
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: url("/assets/images/kantilever_bg.jpg") no-repeat center center;
+    background-size: cover;
+    height: 100%;
+
+    .register-card {
+        min-width: 350px;
+        padding: 35px;
+
+        .register-form {
+            .full-width-input {
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+
+        .register-spinner-container {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+}
+
+.mat-card-actions {
+    margin-top: $s-padding;
+}
+
+.mat-card-actions, .mat-card-content {
+    margin-bottom: 0;
+}
+
+.half-width-input {
+  width: 46%;
+
+  &:first-of-type {
+    margin-right: 8%;
+  }
+}
+
+

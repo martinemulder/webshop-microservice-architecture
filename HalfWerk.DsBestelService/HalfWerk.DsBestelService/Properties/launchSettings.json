@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "HalfWerk.DsBestelService": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DB_CONNECTION_STRING": "Host=localhost;Port=5440;Database=DEV_DsBestellingServiceDB;Username=postgres;Password=Geheim_101",
+        "NIJN_EXCHANGE_NAME": "KantileverBus",
+        "NIJN_HOSTNAME": "localhost",
+        "NIJN_PORT": "5672",
+        "NIJN_USERNAME": "guest",
+        "NIJN_PASSWORD": "guest",
+        "startup-delay-in-seconds": "5"
+      }
+    }
+  }
+}

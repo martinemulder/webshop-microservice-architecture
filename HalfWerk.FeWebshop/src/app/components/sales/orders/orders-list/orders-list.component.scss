@@ -1,0 +1,30 @@
+@import "css/settings.scss";
+
+button {
+    margin-left: .75rem;
+}
+
+.checkmark {
+  color: $color-white;
+  background: $color-green;
+}
+
+.no-records {
+  text-align: center;
+
+  & > h3 {
+    padding: 5px 0;
+  }
+}
+
+.action-container {
+  text-align: center;
+}
+
+h1 {
+  margin-top: $xl-padding;
+}
+
+.action-header {
+  text-align: center;
+}

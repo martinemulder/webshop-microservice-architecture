@@ -1,0 +1,37 @@
+﻿{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false, 
+    "anonymousAuthentication": true, 
+    "iisExpress": {
+      "applicationUrl": "http://localhost:57728",
+      "sslPort": 0
+    }
+  },
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "api/values",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DB_CONNECTION_STRING": "Host=localhost;Port=5440;Database=DEV_BffWebshopDB;Username=postgres;Password=Geheim_101",
+        "NIJN_EXCHANGE_NAME": "KantileverBus",
+        "NIJN_HOSTNAME": "localhost",
+        "NIJN_PORT": "5672",
+        "NIJN_USERNAME": "guest",
+        "NIJN_PASSWORD": "guest",
+        "startup-delay-in-seconds": "5"
+      }
+    },
+    "HalfWerk.BffWebshop": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "api/values",
+      "applicationUrl": "http://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

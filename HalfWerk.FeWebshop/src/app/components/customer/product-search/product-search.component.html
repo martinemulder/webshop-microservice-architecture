@@ -1,0 +1,18 @@
+<form class="product-search-form">
+  <mat-form-field class="full-width">
+    <input matInput #matInput="matInput" (keyup.enter)="handleEnter()" (keyup)="handleKeyup()" placeholder="Zoek op product, categorie, maat ..." aria-label="Product" [matAutocomplete]="auto" [formControl]="productControl" type="search">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let product of filteredProducts | async" [value]="product.naam">
+        <div class="product-filter-container" style="display: flex; justify-content: space-between">
+          <span>{{ product.naam }}</span>
+          <div>
+            <small *ngFor="let category of product.categorieen; let index = index">
+              <strong>{{ category }}</strong>
+              <strong *ngIf="product.categorieen.length === 2 && index === 0">, &nbsp;</strong>
+            </small>
+          </div>
+        </div>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

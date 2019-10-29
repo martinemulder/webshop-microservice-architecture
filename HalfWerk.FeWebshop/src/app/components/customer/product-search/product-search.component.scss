@@ -1,0 +1,18 @@
+:host {
+  padding-left: 25px;
+}
+
+.product-search-form {
+  min-width: 500px;
+  max-width: 600px;
+  width: 100%;
+
+
+  .full-width {
+    width: 100%;
+  }
+}
+
+.mat-active {
+  background: rgba(0, 0, 0, 0.2) !important;
+}

@@ -1,0 +1,92 @@
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+$halfwerk-primary-palette: (
+    50 : #f5f6fc,
+    100 : #e6e8f7,
+    200 : #d5d8f2,
+    300 : #c4c8ec,
+    400 : #b7bde8,
+    500 : #aab1e4,
+    600 : #a3aae1,
+    700 : #99a1dd,
+    800 : #9098d9,
+    900 : #7f88d1,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #f3f4ff,
+    A700 : #daddff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$halfwerk-accent-palette: (
+    50 : #e6e7f1,
+    100 : #c0c4dd,
+    200 : #969cc7,
+    300 : #6c74b0,
+    400 : #4d579f,
+    500 : #2d398e,
+    600 : #283386,
+    700 : #222c7b,
+    800 : #1c2471,
+    900 : #11175f,
+    A100 : #969dff,
+    A200 : #636dff,
+    A400 : #303eff,
+    A700 : #1626ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+
+$halfwerk-app-primary: mat-palette($halfwerk-primary-palette);
+$halfwerk-app-accent:  mat-palette($halfwerk-accent-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$halfwerk-app-warn:    mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$halfwerk-app-theme: mat-light-theme($halfwerk-app-primary, $halfwerk-app-accent, $halfwerk-app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($halfwerk-app-theme);

@@ -1,0 +1,13 @@
+@import "css/mixins.scss";
+
+.row {
+    @include flex();
+}
+
+.column-m {
+    width: 48%;
+}
+
+.column-full {
+    width: 100%;
+}

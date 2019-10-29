@@ -1,0 +1,13 @@
+@import "css/settings.scss";
+
+.toolbar-button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: $xs-padding;
+
+  button {
+    margin-right: 10px;
+  }
+
+}

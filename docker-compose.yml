@@ -1,0 +1,195 @@
+ version: "3"
+
+services:
+  fe-webshop:
+    container_name: kantilever-halfwerk-fe-webshop-c
+    build:
+      context: .
+      dockerfile: ./.docker/FeWebshop/Dockerfile
+    ports:
+      - 8181:80
+    depends_on:
+      - bff-webshop
+    networks:
+      - default
+
+  bff-webshop:
+    container_name: kantilever-halfwerk-bff-webshop-c
+    build:
+      context: .
+      dockerfile: ./.docker/BffWebshop/Dockerfile
+      args:
+        - ENV=Debug
+    env_file:
+      - ./.docker/nijn.env
+    environment:
+      DB_CONNECTION_STRING: 'Host=kantilever-halfwerk-pg-database-c;Database=BffWebshopDB;Username=postgres;Password=Geheim_101'
+      startup-delay-in-seconds: 40
+    ports:
+      - 8182:80
+    depends_on:
+      - pg-database
+      - rabbitmq
+      - auditlog
+      - ds-bestelservice
+      - ds-klantbeheer
+      - authenticationservice
+    networks:
+      - default
+
+  authenticationservice:
+    container_name: kantilever-halfwerk-authenticationservice-c
+    build:
+      context: .
+      dockerfile: ./.docker/AuthenticationService/Dockerfile
+      args:
+        - ENV=Debug
+    env_file:
+      - ./.docker/nijn.env
+    environment:
+      DB_CONNECTION_STRING: 'Host=kantilever-halfwerk-pg-database-c;Database=AuthenticationServiceDB;Username=postgres;Password=Geheim_101'
+      startup-delay-in-seconds: 30
+    depends_on:
+      - pg-database
+      - rabbitmq
+    networks:
+      - default
+
+  ds-bestelservice:
+    container_name: kantilever-halfwerk-ds-bestelservice-c
+    build:
+      context: .
+      dockerfile: ./.docker/DsBestelService/Dockerfile
+      args:
+        - ENV=Debug
+    env_file:
+      - ./.docker/nijn.env
+    environment:
+      DB_CONNECTION_STRING: 'Host=kantilever-halfwerk-pg-database-c;Database=DsBestelServiceDB;Username=postgres;Password=Geheim_101'      
+      startup-delay-in-seconds: 40
+    depends_on:
+      - pg-database
+      - rabbitmq
+      - ds-magazijn
+      - auditlog
+    networks:
+      - default
+
+  ds-klantbeheer:
+    container_name: kantilever-halfwerk-ds-klantbeheer-c
+    build:
+      context: .
+      dockerfile: ./.docker/DsKlantBeheer/Dockerfile
+      args:
+        - ENV=Debug      
+    env_file:
+      - ./.docker/nijn.env
+    environment:
+      DB_CONNECTION_STRING: 'Host=kantilever-halfwerk-pg-database-c;Database=DsKlantBeheerDB;Username=postgres;Password=Geheim_101'      
+      startup-delay-in-seconds: 40
+    depends_on:
+      - pg-database
+      - rabbitmq
+    networks:
+      - default
+  
+  pcs-betaalservice:
+    container_name: kantilever-halfwerk-pcs-betaalservice-c
+    build:
+      context: .
+      dockerfile: ./.docker/PcsBetaalService/Dockerfile
+      args:
+        - ENV=Debug
+    env_file:
+      - ./.docker/nijn.env
+    environment:
+      DB_CONNECTION_STRING: 'Host=kantilever-halfwerk-pg-database-c;Database=PcsBetaalService;Username=postgres;Password=Geheim_101'      
+      startup-delay-in-seconds: 40
+    depends_on:
+      - pg-database
+      - rabbitmq
+    networks:
+      - default
+
+  fe-magazijn:
+    container_name: kantilever-halfwerk-fe-magazijn-c
+    image: dotnetminor.azurecr.io/kantilever-magazijn-frontend:latest
+    env_file:
+      - ./.docker/kantilever.env
+    environment:
+      MagazijnViewDb: Server=kantilever-halfwerk-sql-database-c,1433;Database=MagazijnViewDb;User ID=sa;Password=Geheim_101
+      startup-delay-in-seconds: 30
+    ports:
+     - 8282:80
+    depends_on:
+      - sql-database
+      - rabbitmq
+    networks:
+      - default
+
+  ds-magazijn:
+    container_name: kantilever-halfwerk-ds-magazijn-c
+    image: dotnetminor.azurecr.io/kantilever-magazijn-service:latest
+    env_file:
+      - ./.docker/kantilever.env
+    environment:
+      MagazijnDb: Server=kantilever-halfwerk-sql-database-c,1433;Database=MagazijnDb;User ID=sa;Password=Geheim_101
+      startup-delay-in-seconds: 30
+    ports:
+     - 8283:80
+    depends_on:
+      - sql-database
+      - rabbitmq
+    networks:
+      - default
+
+  auditlog:
+    container_name: kantilever-halfwerk-auditlog-c
+    image: dotnetminor.azurecr.io/kantilever-auditlog:latest
+    env_file:
+      - ./.docker/kantilever.env
+    environment:
+      AuditLogDb: Server=kantilever-halfwerk-sql-database-c,1433;Database=AuditLogDB;User ID=sa;Password=Geheim_101
+      startup-delay-in-seconds: 30
+    ports:
+      - 8383:80 
+    depends_on:
+      - sql-database
+      - rabbitmq
+    networks:
+      - default
+
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    container_name: kantilever-halfwerk-rabbitmq-c
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - default
+
+  sql-database:
+    container_name: kantilever-halfwerk-sql-database-c
+    image: mcr.microsoft.com/mssql/server
+    ports:
+      - 1435:1433
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: Geheim_101
+    networks:
+      - default
+
+  pg-database:
+    container_name: kantilever-halfwerk-pg-database-c
+    image: postgres
+    restart: always
+    ports:
+      - 5440:5432
+    environment:
+      POSTGRES_PASSWORD: Geheim_101
+      POSTGRES_USER: postgres
+    networks:
+      - default

@@ -1,0 +1,104 @@
+@import "css/mixins.scss";
+@import "css/settings.scss";
+
+.button-wrap {
+  @include flex();
+  @include flex-justify-center();
+}
+
+.column {
+  margin-top: $m-padding;
+}
+
+.bestelling {
+  background: white;
+  padding: $m-padding;
+  padding-bottom: $xl-padding;
+  margin: $m-padding 0;
+  @include shadow();
+}
+
+ul {
+  padding: $s-padding 0;
+  border-bottom: .15rem solid $color-light-grey;
+
+  &:last-of-type {
+    border: none;
+  }
+}
+
+button {
+  margin-left: $s-padding;
+}
+
+.mat-table-wrap {
+  margin-top: $s-padding;
+  width: 100%;
+
+  table {
+    margin-bottom: $s-padding;
+    margin-top: 0;
+  }
+  
+  .mat-column-prijsInclBtw, 
+  .mat-column-prijsExclBtw, .mat-footer-row {
+    display: none; 
+  }
+}
+
+@media print {
+
+  #klant-gegevens.large {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+  }
+
+  h1 {
+    font-size: 1.4rem!important;
+  }
+
+  .bestelling {
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .button-wrap {
+    display: none;
+  }
+
+  .column {
+    margin-top: $s-padding;
+  }
+    
+  .mat-table-wrap {
+    margin-top: .5rem;
+
+    .mat-column-prijsInclBtw {
+      display: table-cell;
+      visibility: visible;
+      height: auto;
+    }
+
+    .mat-cell, .mat-footer-cell, .mat-header-cell {
+      height: auto!important;
+      line-height: inherit!important;
+      font-size: .9rem;
+      padding-top: .25rem!important;
+      padding-bottom: .25rem!important;
+    }
+
+    .mat-column-artikelafbeelding, .mat-column-leverancierCode {
+      @include hidden();
+    }
+    
+    tr.mat-footer-row, tr.mat-row, tr.mat-header-row {
+      height: auto!important;
+      line-height: auto!important;
+    }
+    
+    .mat-footer-row {
+      display: contents;
+    }
+  }
+}

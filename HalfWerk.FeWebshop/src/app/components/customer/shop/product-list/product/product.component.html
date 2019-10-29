@@ -1,0 +1,16 @@
+<div class="product">
+  <div class="image has-background">
+    <img src="{{ imageUrl }}" alt="{{product.afbeeldingUrl}}" />
+    <div class="price">{{priceInclBtw | currency:'EUR':'symbol'}}</div>
+  </div>
+  <div class="title">{{product.naam}}</div>
+  <div class="stock" [class.in-stock]="product.voorraad > 0">
+    {{product.voorraad | voorraad}}
+  </div>
+  <div class="footer">
+    <button (click)="addProductToShoppingCart()" mat-raised-button color="primary" class="btn add-to-cart">
+      <mat-icon>add</mat-icon> 
+      In winkelwagen
+    </button>
+  </div>
+</div>

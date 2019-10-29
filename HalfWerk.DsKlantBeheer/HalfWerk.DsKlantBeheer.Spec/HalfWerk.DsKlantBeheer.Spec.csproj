@@ -1,0 +1,62 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.msbuild" Version="2.5.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="Moq" Version="4.10.1" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
+    <PackageReference Include="SpecFlow" Version="2.2.1" />
+    <PackageReference Include="SpecFlow.MsTest" Version="2.2.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="SpecFlow.NetCore" Version="1.0.0-rc9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HalfWerk.DsKlantBeheer\HalfWerk.DsKlantBeheer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="TechTalk.SpecFlow">
+      <HintPath>$(ProjectDir)\TechTalk.SpecFlow.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="KlantToevoegen.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>KlantToevoegen.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Test.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Test.feature</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="KlantToevoegen.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>KlantToevoegen.feature.cs</LastGenOutput>
+    </None>
+    <None Update="Test.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Test.feature.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>

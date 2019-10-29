@@ -1,0 +1,33 @@
+@import "css/settings.scss";
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: url("/assets/images/kantilever_bg.jpg") no-repeat center center;
+    background-size: cover;
+    height: 100%;
+
+    .login-card {
+        min-width: 350px;
+        padding: 35px;
+
+        .login-form {
+            .full-width-input {
+                width: 100%;
+            }
+
+            .register-link {
+              cursor: pointer;
+            }
+        }
+
+        .login-spinner-container {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+}

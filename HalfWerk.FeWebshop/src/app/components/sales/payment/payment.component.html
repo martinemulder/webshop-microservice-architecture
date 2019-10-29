@@ -1,0 +1,25 @@
+<div class="content">
+  <div class="payment-form">
+    <form [formGroup]="paymentForm" (keyup.enter)="handleBetaling()">
+      <div>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Factuurnummer" formControlName="factuurnummer">
+          <mat-error *ngIf="paymentForm.controls['factuurnummer'].hasError('required')">Factuurnummer is verplicht</mat-error>
+          <mat-error *ngIf="paymentForm.controls['factuurnummer'].hasError('pattern')">Factuurnummer moet een nummer
+            zijn</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="full-width">
+          <span matPrefix>€ &nbsp;</span>
+          <input matInput placeholder="Bedrag" formControlName="bedrag" #inputRef>
+          <mat-error *ngIf="paymentForm.controls['bedrag'].hasError('required')">Bedrag is verplicht</mat-error>
+          <mat-error *ngIf="paymentForm.controls['bedrag'].hasError('pattern')">Bedrag niet in het juiste formaat</mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+    <button mat-raised-button id="btn-registreer-bedrag" (click)="handleBetaling()" class="mat-primary btn">Registreer
+      bedrag
+    </button>
+  </div>
+</div>

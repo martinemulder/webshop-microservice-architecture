@@ -1,0 +1,14 @@
+@import "css/mixins.scss";
+@import "css/settings.scss";
+
+.content {
+  @include flex();
+  @include flex-align-center();
+  @include flex-justify-center();
+
+  height: 100%;
+}
+
+.btn {
+  font-size: 1.2rem;
+}

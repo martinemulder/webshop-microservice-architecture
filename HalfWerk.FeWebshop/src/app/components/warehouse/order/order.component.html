@@ -1,0 +1,132 @@
+<div class="content">
+
+  <div *ngIf="bestelling" id="bestelling-wrap">
+
+    <div class="bestelling" id="bestelling">
+
+      <div [class.print-hidden]="isPrintingAdreslabel">
+        <h1>Bestelling {{bestelling.factuurnummer}}</h1>
+        <h3>Besteldatum: {{bestelling.besteldatum | date: 'medium'}}</h3>
+      </div>
+
+      <!-- Kantilever -->
+      <div *ngIf="printedFactuur && !isPrintingAdreslabel" class="print-visible right">
+        <div id="kantilever-adres" class="column column-m">
+          <h3>Kantilever B.V.</h3>
+          Kruisboog 42<br/>
+          3905 TG Veenendaal<br/>
+          Tel: +31 318 552020<br/>
+          Email: info@kantilever.nl<br/>
+          IBAN: NL44 ABNA 00058 54051<br/>
+          K.v.K. 3013 5370<br/>
+          BTW NL8062.30.277.B01
+        </div>
+      </div>
+
+      <!-- Klant -->
+      <div id="klant-gegevens" [class.large]="isPrintingAdreslabel" class="row print-visible">
+        <div class="column column-m">
+          <h3 [class.print-hidden]="isPrintingAdreslabel">Klant</h3>
+          <div id="adreslabel">
+            {{bestelling.contactInfo.naam}}<br/>
+            {{bestelling.afleveradres.adres}}<br/>
+            {{bestelling.afleveradres.postcode}} {{bestelling.afleveradres.plaats}}<br/>
+            {{bestelling.afleveradres.land}}
+          </div>
+        </div>
+      </div>
+
+      <!-- Producten -->
+      <div class="row">
+        <div [class.print-hidden]="isPrintingAdreslabel" class="column column-full">
+          <h3>Artikelen</h3>
+
+          <div class="mat-table-wrap">
+            <table mat-table [dataSource]="bestelling.bestelRegels">
+
+              <!-- Artikel afbeelding -->
+              <ng-container matColumnDef="artikelafbeelding">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                  <img src="/assets/images/producten/{{element.afbeeldingUrl}}" alt="preview artikel"/>
+                </td>
+                <td mat-footer-cell *matFooterCellDef>
+                </td>
+              </ng-container>
+
+              <!-- Artikelnaam -->
+              <ng-container matColumnDef="artikelnaam">
+                <th mat-header-cell *matHeaderCellDef> Artikel</th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.naam}}
+                </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+              </ng-container>
+
+              <!-- Artikelnummer -->
+              <ng-container matColumnDef="leverancierCode">
+                <th mat-header-cell *matHeaderCellDef> Leverancierscode</th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.leverancierCode}}
+                </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+              </ng-container>
+
+              <!-- Aantal -->
+              <ng-container matColumnDef="aantal">
+                <th mat-header-cell *matHeaderCellDef> Aantal</th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.aantal}}
+                </td>
+                <td mat-footer-cell *matFooterCellDef>
+                  Totaal<br />
+                  Totaal (excl btw)
+                </td>
+              </ng-container>
+
+              <!-- Prijs (incl btw) -->
+              <ng-container matColumnDef="prijsInclBtw">
+                <th mat-header-cell *matHeaderCellDef> Prijs (incl btw)</th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.regelTotaalInclBtw | currency:'EUR':'symbol'}}
+                </td>
+                <td mat-footer-cell *matFooterCellDef>
+                    {{getTotalCost() | currency:'EUR':'symbol'}}<br />
+                    {{getTotalCostExclBtw() | currency:'EUR':'symbol'}}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+
+            </table>
+
+            <div *ngIf="printedFactuur" id="payment-message" class="print-visible">
+              <p>U wordt vriendelijk verzocht het verschuldigde bedrag binnen 30 dagen over te maken naar rekeningnummer
+                NL44 ABNA 00058 54051 t.n.v. Kantilever onder vermelding van uw
+                factuurnummer: {{bestelling.factuurnummer}}.</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="button-wrap">
+      <button id="print-factuur-btn" class="mat-raised-button mat-primary btn" (click)="printFactuur()">
+        Print factuur
+      </button>
+      <button id="print-adreslabel-btn" class="mat-raised-button mat-primary btn" (click)="printAdreslabel()">
+        Print adreslabel
+      </button>
+      <button [disabled]="!hasPrintedBothDocuments()" id="bestelling-afronden-btn" class="mat-raised-button mat-approve btn" (click)="bestellingAfronden()">
+        Bestelling afronden
+      </button>
+    </div>
+
+  </div>
+
+  <h1 *ngIf="!bestelling" class="feedback">Geen bestellingen gevonden om in te pakken</h1>
+
+</div>

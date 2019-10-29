@@ -1,0 +1,84 @@
+<mat-horizontal-stepper linear #stepper>
+  <!-- step 1 -->
+  <mat-step [stepControl]="firstFormGroup" [editable]="editable">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Vul jouw naam in</ng-template>
+      <div>
+        <mat-form-field>
+          <input id="voornaam-input" matInput placeholder="Voornaam" formControlName="voornaam" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input id="achternaam-input" matInput placeholder="Achternaam" formControlName="achternaam" required>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input id="email-input" matInput placeholder="E-mailadres" formControlName="email" type="email" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input id="telefoonnummer-input" matInput placeholder="Telefoonnummer" formControlName="telefoonnummer" required>
+        </mat-form-field>
+      </div>
+      <div>
+        <button id="next-checkout-button" mat-raised-button matStepperNext class="mat-primary btn">Volgende</button>
+      </div>
+    </form>
+  </mat-step>
+  <!-- step 2 -->
+  <mat-step [stepControl]="secondFormGroup" [editable]="editable">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Vul jouw adres in</ng-template>
+
+      <div *ngIf="!orderPlaced">
+        <div>
+          <mat-form-field>
+            <input id="straat-input" matInput placeholder="Straat" formControlName="straat" required>
+          </mat-form-field>
+          <mat-form-field>
+            <input id="huisnummer-input" matInput placeholder="Huisnummer" formControlName="huisnummer" required>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <input id="postcode-input" matInput placeholder="Postcode" formControlName="postcode" required>
+          </mat-form-field>
+          <mat-form-field>
+            <input id="plaats-input" matInput placeholder="Woonplaats" formControlName="woonplaats" required>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <input id="land-input" matInput placeholder="Land" formControlName="land" required>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div *ngIf="!orderPlaced" class="before-order-placed-container">
+        <button mat-raised-button color="secondary" class="mat-primary btn" matStepperPrevious>Terug</button>
+        <button id="place-order-button" [disabled]="!(firstFormGroup.valid && secondFormGroup.valid)" mat-raised-button color="primary" class="add-to-cart mat-primary btn"
+          (click)="checkout()">Plaats bestelling</button>
+      </div>
+
+      <div *ngIf="orderPlaced" class="order-placed-container">
+        <div *ngIf="showSpinner" class="order-spinner-container">
+          <h3>Bestelling wordt geplaatst ...</h3>
+        </div>
+      </div>
+
+    </form>
+  </mat-step>
+  <!-- step 3 -->
+  <mat-step [editable]="editable">
+    <ng-template matStepLabel>Bestelling geplaatst</ng-template>
+
+    <!-- order placed and response is successful -->
+    <div *ngIf="!showSpinner" class="order-status-container">
+      <h3 id="order-success">Bestelling #{{ bestellingDto.bestelnummer }} is geplaatst</h3>
+      <button mat-raised-button color="primary" class="mat-primary margin-xs btn" [routerLink]="['/shop']">
+        Ga naar overzicht producten
+      </button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

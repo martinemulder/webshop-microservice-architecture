@@ -1,0 +1,31 @@
+.collapsed-list-item {
+    display: flex !important;
+    justify-content: center !important;
+}
+
+.collapsed-expander {
+    display: flex !important;
+    justify-content: flex-end;
+}
+
+.toolbar-spacer {
+    flex: 1 1 auto;
+}
+
+.toolbar-icon {
+    padding: 0 14px;
+}
+
+// accordion
+.mat-expansion-panel-body {
+    padding: 0px 7px 7px !important;
+    margin-top: -15px !important;
+}
+
+.mat-expansion-panel:not([class*="mat-elevation-z"]) {
+    box-shadow: none !important;
+}
+
+.active-route {
+    background: rgba(0,0,0,.04);
+}

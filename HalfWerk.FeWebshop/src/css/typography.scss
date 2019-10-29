@@ -1,0 +1,73 @@
+@import "css/settings.scss";
+
+@font-face {
+    font-family: 'Calibri';
+    src: url('/assets/fonts/Calibri.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/Calibri.woff') format('woff'),
+    url('/assets/fonts/Calibri.ttf')  format('truetype'), 
+    url('/assets/fonts/Calibri.svg#Calibri') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'VladimirScript';
+    src: url('/assets/fonts/VladimirScript.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/VladimirScript.woff') format('woff'),
+    url('/assets/fonts/VladimirScript.ttf')  format('truetype'), 
+    url('/assets/fonts/VladimirScript.svg#VladimirScript') format('svg');
+    font-weight: normal; 
+    font-style: normal;
+}
+
+body, a, input, h1, h2, h3, .mat-table {
+    font-family: 'Calibri'!important;
+    line-height: 1.5rem;
+}
+
+a {
+    color: black;
+}
+
+h1 {
+    font-size: 1.8rem;
+}
+
+h2 {
+    font-size: 1.3rem;
+    margin: $m-padding 0;
+}
+
+h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+h1#site-title, app-login .mat-card-title, app-register .mat-card-title { 
+    font-size: 3rem!important;
+    font-family: 'VladimirScript'!important;
+}
+
+h1#site-title {
+    margin-left: 3rem;
+}
+
+app-login .mat-card-title, app-register .mat-card-title {
+    margin-bottom: 1.7rem;
+}
+
+h1.feedback {
+    margin-top: $xl-padding;
+    text-align: center;
+}
+
+@media print {
+    h1 {
+        font-size: 1.4rem!important;
+    }
+
+    body, a, input, h1, h2, h3, .mat-table {
+        font-size: .9rem!important;
+        line-height: 1rem!important;
+    }
+}

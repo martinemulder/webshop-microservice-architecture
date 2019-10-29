@@ -1,0 +1,7 @@
+@import "css/mixins.scss";
+@import "css/settings.scss";
+
+:host {
+  @include flex();
+  @include flex-wrap();
+}

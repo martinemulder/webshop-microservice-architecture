@@ -1,0 +1,6 @@
+﻿#error Parsing error near '<?xml version="1.0" encoding="utf-8"?>'
+#error Parsing error near '<configuration>'
+#error Parsing error near '<configSections>'
+#error Parsing error near '<section name="specFlow" type="TechTalk.SpecFlow.Configuration.ConfigurationSectionHandler, TechTalk.SpecFlow" />'
+#error Parsing error near '</configSections>'
+#error Parsing error near '<specFlow>'

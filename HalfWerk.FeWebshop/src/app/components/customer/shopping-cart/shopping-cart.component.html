@@ -1,0 +1,98 @@
+<div class="content">
+  <div class="mat-table-wrap">
+
+    <h2 class="header">Winkelmandje</h2>
+    <div class="header-container">
+      <h3 *ngIf="shoppingCartService.getTotalItemCount() > 0 || shoppingCartService.hasItemsWithQuantityZero()">Artikelen
+        in jouw winkelmandje:</h3>
+      <div *ngIf="shoppingCartService.getTotalItemCount() === 0 && !shoppingCartService.hasItemsWithQuantityZero()">
+        <h3>Je winkelmandje is nog leeg</h3>
+        <button mat-raised-button color="primary" class="margin-xs" [routerLink]="['/shop']">
+          Ga naar overzicht producten
+        </button>
+      </div>
+    </div>
+
+    <table id="shopping-cart-table" *ngIf="shoppingCartService.getTotalItemCount() > 0 || shoppingCartService.hasItemsWithQuantityZero()"
+      mat-table [dataSource]="shoppingCartService.cart$ | async" class="mat-elevation-z8">
+
+      <!-- Afbeelding -->
+      <ng-container matColumnDef="afbeelding">
+        <th mat-header-cell *matHeaderCellDef> Artikel </th>
+        <td mat-cell *matCellDef="let element">
+          <img src="/assets/images/producten/{{element.product.afbeeldingUrl}}" alt="Preview artikel" />
+        </td>
+        <td mat-footer-cell *matFooterCellDef>
+        </td>
+      </ng-container>
+
+      <!-- Naam -->
+      <ng-container matColumnDef="naam">
+        <th mat-header-cell *matHeaderCellDef> Naam </th>
+        <td mat-cell *matCellDef="let element"> {{element.product.naam}} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <!-- Prijs per stuk -->
+      <ng-container matColumnDef="prijsperstuk">
+        <th mat-header-cell *matHeaderCellDef> Prijs per stuk </th>
+        <td mat-cell *matCellDef="let element">{{getPriceInclBtw(element.product.prijs) | currency:'EUR':'symbol'}}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <!-- Aantal -->
+      <ng-container matColumnDef="aantal">
+        <th mat-header-cell *matHeaderCellDef> Aantal </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="amount-container">
+            <button class="btn-quantity btn-decrease-quantity" color="primary" (click)="decreaseQuanityAmount(element.product, $event)">
+              -
+            </button>
+            <div class="amount-value">
+              {{element.quantity}}
+            </div>
+            <button class="btn-quantity btn-increase-quantity" color="primary" (click)="increaseQuanityAmount(element.product, $event)">
+              +
+            </button>
+          </div>
+        </td>
+        <td mat-footer-cell *matFooterCellDef>
+          Totaal<br />
+          Totaal (excl btw)
+        </td>
+      </ng-container>
+
+      <!-- Prijs -->
+      <ng-container matColumnDef="prijs">
+        <th mat-header-cell *matHeaderCellDef> Prijs </th>
+        <td mat-cell *matCellDef="let element">{{element | totalCartItemPrice | currency:'EUR':'symbol'}}</td>
+        <td mat-footer-cell *matFooterCellDef>
+          {{getTotalCost() | async | currency:'EUR':'symbol'}}<br />
+          {{getTotalCostExclBtw() | async | currency:'EUR':'symbol'}}
+        </td>
+      </ng-container>
+
+      <!-- Actie -->
+      <ng-container matColumnDef="actie">
+        <th mat-header-cell *matHeaderCellDef> Actie </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-raised-button color="warn" class="btn btn-clear-quantity" (click)="clearQuantityAmount(element.product)">
+            <mat-icon>delete</mat-icon>
+            Verwijder
+          </button>
+        </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+    </table>
+    <div class="order-container margin-xs" *ngIf="shoppingCartService.getTotalItemCount() > 0">
+      <button id="checkout-button" mat-raised-button class="btn" color="primary" [routerLink]="['checkout']">
+        <mat-icon>chevron_right</mat-icon>
+        Bestelling afronden
+      </button>
+    </div>
+  </div>
+</div>

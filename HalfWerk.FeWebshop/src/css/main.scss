@@ -1,0 +1,130 @@
+@import "css/settings.scss";
+@import "css/mixins.scss";
+
+body, html {
+    height: 100%;
+    position: relative;
+}
+
+html {
+    margin-top: 0!important;
+}
+
+.content {
+  padding: 0 $m-padding;
+  margin-bottom: $xl-padding; 
+}
+
+p {
+    margin-bottom: $s-padding;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    box-shadow: 0 0 0px 1000px white inset;
+}
+
+.sidenav-container {
+  @include flex();
+}
+
+.collapsed-list-item {
+  @include flex();
+  justify-content: center !important;
+}
+
+.collapsed-expander {
+  @include flex();
+  justify-content: flex-end;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.toolbar-icon {
+  padding: 0 14px;
+}
+
+.mat-expansion-panel-body {
+  padding: 0px 7px 7px !important;
+  margin-top: -15px !important;
+}
+
+.mat-expansion-panel:not([class*="mat-elevation-z"]) {
+  box-shadow: none !important;
+}
+
+.active-route {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.toolbar-container {
+  @include flex();
+  justify-content: space-between;
+  width: auto;
+}
+
+#search-bar {
+  width: 25rem;
+  font-size: 1.1rem;
+  padding: $xs-padding; 
+  align-self: center; 
+  @include border-radius();
+  margin-right: 0.3125rem;
+}
+
+.mat-drawer-container {
+  height: auto!important;
+  overflow: visible!important;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+}
+
+.hidden, .print-visible {
+  @include hidden();
+}
+
+/* Clearfix */
+
+.content:after, body:after, app-header:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+@media all and (max-width: 1080px) {
+  .content {
+    padding: 0 $m-padding;
+  }
+}
+
+@media only screen and (max-width: 899px) {
+  #search-bar {
+    width: 250px;
+  }
+}
+
+@media print {
+  .mat-toolbar {
+    display: none!important;
+  }
+
+  .content {
+    padding: 0!important;
+  }
+
+  .print-visible {
+    @include visible();
+  }
+
+  .print-hidden {
+   @include hidden();
+  }
+}

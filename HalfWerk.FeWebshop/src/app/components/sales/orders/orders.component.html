@@ -1,0 +1,6 @@
+<div class="content">
+  <div class="spinner-container">
+    <mat-spinner *ngIf="loading"></mat-spinner>
+  </div>
+  <app-orders-list *ngIf="!loading" [bestellingen]="bestellingenService.bestellingen$ | async"></app-orders-list>
+</div>

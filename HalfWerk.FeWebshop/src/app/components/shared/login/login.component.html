@@ -1,0 +1,43 @@
+<div class="login-container">
+
+  <mat-card class="login-card">
+    <div *ngIf="!showSpinner">
+        <mat-card-title>
+            Inloggen Kantilever Webshop
+          </mat-card-title>
+          <mat-card-content>
+            <form [formGroup]="loginForm" class="login-form" (keyup.enter)="login()">
+              <div>
+                <mat-form-field class="full-width-input">
+                  <input id="email-input" matInput placeholder="E-mailadres" formControlName="email" required>
+                  <mat-error *ngIf="!loginForm.get('email').valid">E-mailadres is verplicht</mat-error>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="full-width-input">
+                  <input id="password-input" matInput placeholder="Wachtwoord" formControlName="wachtwoord" type="password" required>
+                  <mat-error *ngIf="!loginForm.get('wachtwoord').valid">Wachtwoord is verplicht</mat-error>
+                </mat-form-field>
+              </div>
+              <p>Nog geen klant? <span class="register-link" [routerLink]="['/register']">Klik hier om te registreren</span></p>
+            </form>
+            <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+          </mat-card-content>
+          <mat-card-actions>
+              <button id="login" mat-raised-button (click)="login()" class="btn" color="primary">
+                Inloggen
+              </button>
+              <button mat-raised-button color="secondary" class="btn" [routerLink]="['/shop']">
+                <mat-icon>keyboard_return</mat-icon>
+                Terug naar webshop
+              </button>
+          </mat-card-actions>
+    </div>
+
+    <div *ngIf="showSpinner" class="login-spinner-container">
+      <h1>Bezig met inloggen ...</h1>
+      <mat-spinner></mat-spinner>
+    </div>
+  </mat-card>
+
+</div>

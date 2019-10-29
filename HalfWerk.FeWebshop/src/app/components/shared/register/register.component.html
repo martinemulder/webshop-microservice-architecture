@@ -1,0 +1,100 @@
+<div class="register-container">
+
+  <mat-card class="register-card">
+    <div *ngIf="!showSpinner">
+      <mat-card-title>
+        Registreren Kantilever Webshop
+      </mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="registerForm" class="register-form" (ngSubmit)="onSubmit()">
+          <div>
+            <mat-form-field class="half-width-input">
+              <input id="voornaam" matInput placeholder="Voornaam" formControlName="voornaam"
+                required>
+              <mat-error *ngIf="registerForm.controls['voornaam'].hasError('required')">Voornaam is verplicht</mat-error>
+            </mat-form-field>
+            <mat-form-field class="half-width-input">
+              <input id="achternaam" matInput placeholder="Achternaam" formControlName="achternaam"
+                required>
+              <mat-error *ngIf="registerForm.controls['achternaam'].hasError('required')">Achternaam is verplicht</mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="half-width-input">
+              <input id="straatnaam" matInput placeholder="Straatnaam" formControlName="straatnaam"
+                required>
+              <mat-error *ngIf="registerForm.controls['straatnaam'].hasError('required')">Straatnaam is verplicht</mat-error>
+            </mat-form-field>
+            <mat-form-field class="half-width-input">
+              <input id="huisnummer" matInput placeholder="Huisnummer" formControlName="huisnummer"
+                required>
+              <mat-error *ngIf="registerForm.controls['huisnummer'].hasError('required')">Huisnummer is verplicht</mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="half-width-input">
+              <input id="postcode" matInput placeholder="Postcode" formControlName="postcode"
+                required>
+              <mat-error *ngIf="registerForm.controls['postcode'].hasError('required')">Postcode is verplicht</mat-error>
+            </mat-form-field>
+            <mat-form-field class="half-width-input">
+              <input id="plaats" matInput placeholder="Plaats" formControlName="plaats"
+                required>
+              <mat-error *ngIf="registerForm.controls['plaats'].hasError('required')">Plaats is verplicht</mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="full-width-input">
+              <input id="land" matInput placeholder="Land" formControlName="land"
+                required>
+              <mat-error *ngIf="registerForm.controls['land'].hasError('required')">Land is verplicht</mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="full-width-input">
+              <input id="telefoonnummer" matInput placeholder="Telefoonnummer" formControlName="telefoonnummer"
+                required>
+              <mat-error *ngIf="registerForm.controls['telefoonnummer'].hasError('required')">Telefoonnummer is verplicht</mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="full-width-input">
+              <input id="email-input" matInput placeholder="E-mailadres" formControlName="email" type="email" [email]="true" required>
+              <mat-error *ngIf="registerForm.controls['email'].hasError('email')">Vul een geldig e-mailadres in</mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="half-width-input">
+              <input id="password-input" matInput placeholder="Wachtwoord" formControlName="wachtwoord" type="password"
+                required>
+              <mat-error *ngIf="registerForm.controls['wachtwoord'].hasError('required')">Wachtwoord is verplicht</mat-error>
+            </mat-form-field>
+            <mat-form-field class="half-width-input">
+              <input id="confirm-password-input" matInput placeholder="Bevestig wachtwoord" formControlName="bevestigWachtwoord" type="password"
+                required>
+              <mat-error *ngIf="registerForm.controls['bevestigWachtwoord'].hasError('required')">Wachtwoord is verplicht</mat-error>
+              <mat-error *ngIf="registerForm.controls['bevestigWachtwoord'].hasError('NoPassswordMatch')">Wachtwoorden komen niet overeen</mat-error>
+            </mat-form-field>
+          </div>
+
+          <mat-card-actions>
+              <button id="register" type="submit" mat-raised-button class="mat-primary btn" color="primary">
+                Registreren
+              </button>
+              <button mat-raised-button color="secondary" class="btn" [routerLink]="['/login']">
+                <mat-icon>keyboard_return</mat-icon>
+                Terug naar inloggen
+              </button>
+            </mat-card-actions>
+        </form>
+      </mat-card-content>
+    </div>
+
+    <div *ngIf="showSpinner" class="register-spinner-container">
+      <h1>Bezig met registreren ...</h1>
+      <mat-spinner></mat-spinner>
+    </div>
+  </mat-card>
+
+
+</div>

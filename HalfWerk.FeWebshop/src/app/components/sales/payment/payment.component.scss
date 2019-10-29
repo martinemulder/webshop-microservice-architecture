@@ -1,0 +1,15 @@
+@import "css/settings.scss";
+
+.payment-form {
+    max-width: 400px;
+    padding: $xs-padding;
+    margin: $xs-padding;
+    
+    #btn-registreer-bedrag {
+        margin-top: $xs-padding;
+    }
+}
+
+.full-width {
+    width: 100%;
+}

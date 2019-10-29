@@ -1,0 +1,13 @@
+<div *ngIf="showButtonSpinner" style="display: flex; justify-content: center;">
+    <mat-spinner></mat-spinner>
+  </div>
+<div *ngIf="!showButtonSpinner">
+  <button id="login-button" *ngIf="!loggedIn" class="btn user-action" mat-raised-button color="primary" [routerLink]="'/login'">
+    Inloggen
+    <mat-icon class="toolbar-icon">perm_identity</mat-icon>
+  </button>
+  <button id="logout-button" *ngIf="loggedIn" class="btn user-action" mat-raised-button color="primary" (click)="authenticationService.logout()">
+    Uitloggen
+    <mat-icon class="toolbar-icon">exit_to_app</mat-icon> 
+  </button>
+</div>

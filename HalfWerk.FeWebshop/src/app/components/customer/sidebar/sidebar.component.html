@@ -1,0 +1,42 @@
+<mat-sidenav
+#sidenav
+mode="side"
+opened
+class="sidenav-container"
+[fixedInViewport]="options.value.fixed"
+[fixedTopGap]="options.value.top"
+[fixedBottomGap]="options.value.bottom"
+[@onSideNavChange]="sideNavState"
+>
+<mat-nav-list>
+  <a
+    mat-list-item
+    [class.collapsed-list-item]="!expanded"
+    [class.collapsed-expander]="expanded"
+    [disableRipple]="true"
+    [matTooltip]="expanded ? 'Inklappen' : 'Uitklappen'"
+    matTooltipPosition="after"
+    (click)="toggleExpanded($event)"
+  >
+    <mat-icon *ngIf="expanded">chevron_left</mat-icon>
+    <mat-icon *ngIf="!expanded">chevron_right</mat-icon>
+  </a>
+  <a
+    mat-list-item
+    *ngFor="let link of routerLinks"
+    routerLink="{{ link.route.path }}"
+    routerLinkActive="active-route"
+    [disableRipple]="true"
+    [matTooltip]="!expanded ? link.name : ''"
+    matTooltipPosition="after"
+    [class.collapsed-list-item]="!expanded"
+    [style.font-size]="'14px'"
+  >
+  <mat-icon *ngIf="link.badge" matBadge="{{ link.badge }}">{{ link.icon }}</mat-icon>
+  <mat-icon *ngIf="!link.badge">{{ link.icon }}</mat-icon>
+    <span *ngIf="expanded" style="margin-left: 5px;">
+      {{ link.name }}
+    </span>
+  </a>
+</mat-nav-list>
+</mat-sidenav>

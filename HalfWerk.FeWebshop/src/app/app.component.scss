@@ -1,0 +1,60 @@
+@import "css/settings.scss";
+@import "css/mixins.scss";
+
+.sidenav-container {
+  @include flex();
+}
+
+.collapsed-list-item {
+  @include flex();
+  justify-content: center !important;
+}
+
+.collapsed-expander {
+  @include flex();
+  justify-content: flex-end;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.toolbar-icon {
+  padding: 0 14px;
+}
+
+.mat-expansion-panel-body {
+  padding: 0px 7px 7px !important;
+  margin-top: -15px !important;
+}
+
+.mat-expansion-panel:not([class*="mat-elevation-z"]) {
+  box-shadow: none !important;
+}
+
+.active-route {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.toolbar-container {
+  @include flex();
+  justify-content: space-between;
+  width: auto;
+}
+
+#banner {
+  height: 10rem;
+
+  img {
+    height: 100%;
+  }
+}
+
+.mat-drawer-container {
+  height: 100%;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,8 @@
+@import "css/settings.scss";
+
+.product-toolbar {
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  padding-top: $xs-padding;
+}

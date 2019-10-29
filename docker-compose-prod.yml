@@ -1,0 +1,175 @@
+version: "3.3"
+
+services:
+  fe-webshop:
+    container_name: kantilever-halfwerk-fe-webshop-c
+    image: dotnetminor.azurecr.io/halfwerk-fe-webshop-i:latest
+    environment:
+      VIRTUAL_HOST: halfwerkshop.netminor.infosupport.net
+      VIRTUAL_PORT: 80
+      VIRTUAL_FOLDER: /
+    depends_on:
+      - bff-webshop
+    networks:
+      - kantilever-halfwerk
+      - proxy
+
+  bff-webshop:
+    container_name: kantilever-halfwerk-bff-webshop-c
+    image: dotnetminor.azurecr.io/halfwerk-bff-webshop-i:latest
+    env_file:
+      - ./nijn.env
+    environment:
+      DB_CONNECTION_STRING: 'Host=kantilever-halfwerk-pg-database-c;Database=BffWebshopDB;Username=postgres;Password=Geheim_101'
+      startup-delay-in-seconds: 40
+    depends_on:
+      - pg-database
+      - rabbitmq
+      - auditlog
+      - authenticationservice
+    networks:
+      - kantilever-halfwerk
+
+  authenticationservice:
+    container_name: kantilever-halfwerk-authenticationservice-c
+    image: dotnetminor.azurecr.io/halfwerk-authenticationservice-i:latest
+    env_file:
+      - ./nijn.env
+    environment:
+      DB_CONNECTION_STRING: 'Host=kantilever-halfwerk-pg-database-c;Database=AuthenticationServiceDB;Username=postgres;Password=Geheim_101'
+      startup-delay-in-seconds: 40
+    depends_on:
+      - pg-database
+      - rabbitmq
+    networks:
+      - kantilever-halfwerk
+
+  ds-bestelservice:
+    container_name: kantilever-halfwerk-ds-bestelservice-c
+    image: dotnetminor.azurecr.io/halfwerk-ds-bestelservice-i:latest
+    env_file:
+      - ./nijn.env
+    environment:
+      DB_CONNECTION_STRING: 'Host=kantilever-halfwerk-pg-database-c;Database=DsBestelServiceDB;Username=postgres;Password=Geheim_101'
+      startup-delay-in-seconds: 40
+    depends_on:
+      - pg-database
+      - rabbitmq
+    networks:
+      - kantilever-halfwerk
+
+  ds-klantbeheer:
+    container_name: kantilever-halfwerk-ds-klantbeheer-c
+    image: dotnetminor.azurecr.io/halfwerk-ds-klantbeheer-i:latest
+    env_file:
+      - ./nijn.env
+    environment:
+      DB_CONNECTION_STRING: 'Host=kantilever-halfwerk-pg-database-c;Database=DsKlantBeheerDB;Username=postgres;Password=Geheim_101'
+      startup-delay-in-seconds: 40
+    depends_on:
+      - pg-database
+      - rabbitmq
+    networks:
+      - kantilever-halfwerk
+
+  pcs-betaalservice:
+    container_name: kantilever-halfwerk-pcs-betaalservice-c
+    image: dotnetminor.azurecr.io/halfwerk-pcs-betaalservice-i:latest
+    env_file:
+      - ./nijn.env
+    environment:
+      DB_CONNECTION_STRING: 'Host=kantilever-halfwerk-pg-database-c;Database=PcsBetaalService;Username=postgres;Password=Geheim_101'
+      startup-delay-in-seconds: 40
+    depends_on:
+      - pg-database
+      - rabbitmq
+      - auditlog
+    networks:
+      - kantilever-halfwerk
+  
+  fe-magazijn:
+    container_name: kantilever-halfwerk-fe-magazijn-c
+    image: dotnetminor.azurecr.io/kantilever-magazijn-frontend:latest
+    env_file:
+      - ./kantilever.env
+    environment:
+      VIRTUAL_HOST: kantilever-halfwerk-magazijnfrontend.netminor.infosupport.net
+      VIRTUAL_PORT: 80
+      MagazijnViewDb: Server=kantilever-halfwerk-sql-database-c,1433;Database=MagazijnViewDb;User ID=sa;Password=Geheim_101
+      startup-delay-in-seconds: 40
+    depends_on:
+      - sql-database
+      - rabbitmq
+    networks:
+      - kantilever-halfwerk
+      - proxy
+
+  ds-magazijn:
+    container_name: kantilever-halfwerk-ds-magazijn-c
+    image: dotnetminor.azurecr.io/kantilever-magazijn-service:latest
+    env_file:
+      - ./kantilever.env
+    environment:
+      VIRTUAL_HOST: kantilever-halfwerk-magazijnservice.netminor.infosupport.net
+      VIRTUAL_PORT: 80
+      MagazijnDb: Server=kantilever-halfwerk-sql-database-c,1433;Database=MagazijnDb;User ID=sa;Password=Geheim_101
+      startup-delay-in-seconds: 40
+    depends_on:
+      - sql-database
+      - rabbitmq
+    networks:
+      - kantilever-halfwerk
+      - proxy
+
+  auditlog:
+    container_name: kantilever-halfwerk-auditlog-c
+    image: dotnetminor.azurecr.io/kantilever-auditlog:latest
+    env_file:
+      - ./kantilever.env
+    environment:
+      VIRTUAL_HOST: kantilever-halfwerk-auditlog.netminor.infosupport.net
+      VIRTUAL_PORT: 80
+      AuditLogDb: Server=kantilever-halfwerk-sql-database-c,1433;Database=AuditLogDB;User ID=sa;Password=Geheim_101
+      startup-delay-in-seconds: 30
+    depends_on:
+      - sql-database
+      - rabbitmq
+    networks:
+      - kantilever-halfwerk
+      - proxy
+
+  rabbitmq:
+    container_name: kantilever-halfwerk-rabbitmq-c
+    image: rabbitmq:alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - kantilever-halfwerk
+
+  sql-database:
+    container_name: kantilever-halfwerk-sql-database-c
+    image: mcr.microsoft.com/mssql/server
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: Geheim_101
+    networks:
+      - kantilever-halfwerk
+
+  pg-database:
+    container_name: kantilever-halfwerk-pg-database-c
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: Geheim_101
+      POSTGRES_USER: postgres
+    networks:
+      - kantilever-halfwerk
+
+networks:
+  kantilever-halfwerk:
+    driver: bridge
+
+  proxy:
+    external:
+      name: proxy_network

@@ -1,0 +1,12 @@
+# Docker resources
+Dockerfile
+.docker/**/*.env
+
+# Dotnet core resources
+**/bin/
+**/obj/
+**/packages/
+**/.vs/
+
+# JavaScript Resources
+**/node_modules/

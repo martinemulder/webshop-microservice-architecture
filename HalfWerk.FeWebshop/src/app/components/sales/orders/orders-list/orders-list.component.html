@@ -1,0 +1,72 @@
+
+<div class="content">
+  <div *ngIf="bestellingen?.length > 0" class="mat-table-wrap">
+    <table mat-table [dataSource]="bestellingen" class="mat-elevation-z8">
+
+      <!-- Factuurnummer -->
+      <ng-container matColumnDef="factuurnummer">
+        <th mat-header-cell *matHeaderCellDef> Factuurnummer </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.factuurnummer}}
+        </td>
+      </ng-container>
+
+      <!-- Klant -->
+      <ng-container matColumnDef="klant">
+        <th mat-header-cell *matHeaderCellDef> Klant </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.contactInfo.naam}}
+        </td>
+      </ng-container>
+
+      <!-- Telefoon -->
+      <ng-container matColumnDef="telefoon">
+        <th mat-header-cell *matHeaderCellDef> Telefoon </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.contactInfo.telefoonnummer}}
+        </td>
+      </ng-container>
+
+      <!-- Orderdatum -->
+      <ng-container matColumnDef="besteldatum">
+        <th mat-header-cell *matHeaderCellDef> Datum </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.besteldatum | date:'medium'}}
+        </td>
+      </ng-container>
+
+       <!-- Aantal artikelen -->
+       <ng-container matColumnDef="aantal">
+        <th mat-header-cell *matHeaderCellDef> Aantal </th>
+        <td mat-cell *matCellDef="let element">
+            {{element | totalNumberProductsOrder}}
+        </td>
+      </ng-container>
+
+      <!-- Totaalprijs -->
+      <ng-container matColumnDef="totaalprijs">
+        <th mat-header-cell *matHeaderCellDef> Totaal </th>
+        <td mat-cell *matCellDef="let element">
+          {{element | totalOrderPrice | currency:'EUR':'symbol'}}
+        </td>
+      </ng-container>
+
+      <!-- Actie -->
+      <ng-container matColumnDef="actie">
+        <th mat-header-cell class="action-header" *matHeaderCellDef> Actie </th>
+        <td mat-cell class="action-container" *matCellDef="let element">
+          <button matTooltip="Wachten op aanbetaling" mat-raised-button class="btn" color="success" (click)="pendingPayment(element.factuurnummer)"><mat-icon>attach_money</mat-icon></button>
+          <button matTooltip="Goedkeuren" mat-raised-button class="btn checkmark" (click)="approveBestelling(element.factuurnummer)"><mat-icon>check</mat-icon></button>
+          <button matTooltip="Afkeuren" mat-raised-button class="btn" color="warn" (click)="denyBestelling(element.factuurnummer)"><mat-icon>clear</mat-icon></button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+  </div>
+
+  <h1 *ngIf="bestellingen?.length === 0" class="feedback">Geen openstaande bestellingen</h1>
+
+</div>

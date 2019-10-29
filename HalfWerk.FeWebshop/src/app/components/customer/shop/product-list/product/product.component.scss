@@ -1,0 +1,123 @@
+@import "css/settings.scss";
+@import "css/mixins.scss";
+
+:host {
+    width: 20%;
+    padding: $s-padding;
+    margin-top: $s-padding;
+}
+
+.product {
+    .image {
+        @include has-background();
+        @include flex();
+        @include flex-align-center();
+        @include shadow();
+        background: white;
+        width: 100%;
+        height: 15.5vw;
+        margin-bottom: $xs-padding;
+        position: relative;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    .title {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: .25rem;
+    }
+
+    .price {
+        font-size: 1.1rem;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 2;
+        background: lighten($color-kantilever, 15%);
+        font-weight: 700;
+        width: 6rem;
+        padding-right: .5rem;
+        @include flex();
+        @include flex-align-center();
+        @include flex-justify-end(); 
+        width: 6.5rem;
+        height: 6.5rem;
+        border-radius: 0 0 0 6.5rem;
+        -moz-border-radius: 0 0 0 6.5rem;
+        -webkit-border-radius: 0 0 0 6.5rem;
+    } 
+
+    .stock {
+        color: $color-grey;
+
+        &.in-stock {
+            color: $color-green;
+        } 
+    }
+
+    .footer {
+        margin-top: $xs-padding;
+
+        button {
+          color: $color-black;
+        }
+    }
+}
+
+@media all and (max-width: 1400px) {
+    :host {
+        width: 25%;
+    }
+
+    .product {
+        .image {
+            height: 17vw;
+        }
+    }
+}
+
+@media all and (max-width: 1080px) {
+    :host {
+        width: 33%;
+    }
+
+    .product {
+        .image {
+            height: 22vw;
+        }
+    }
+}
+
+@media all and (max-width: 768px) {
+    :host {
+        width: 50%;
+    }
+
+    .product {
+        .image {
+            height: 32vw;
+        }
+    }
+}
+
+@media all and (max-width: 600px) {
+    :host {
+        padding: $xs-padding;
+    }
+}
+
+@media all and (max-width: 480px) {
+    :host {
+        width: 100%;
+    }
+
+    .product {
+        .image {
+            height: 40vw;
+        }
+    }
+}

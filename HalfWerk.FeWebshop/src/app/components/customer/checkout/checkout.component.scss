@@ -1,0 +1,19 @@
+@import "css/settings.scss";
+
+mat-form-field {
+    margin-right: 3rem!important;
+    width: 30%;
+}
+
+.order-spinner-container {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  margin-right: .75rem;
+}
+
+h3 {
+  margin-bottom: $s-padding;
+}
